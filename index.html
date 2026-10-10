@@ -1,19 +1,35 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#101827"><link rel="manifest" href="manifest.webmanifest">
-<link rel="stylesheet" href="styles.css"><title>Executive Command Center</title>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#101827"><meta name="description" content="Your personal Executive Command Center">
+  <link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="styles.css">
+  <title>Executive Command Center</title>
 </head>
 <body>
-<header><div class="brand"><span class="mark">EC</span><div><strong>Executive Command Center</strong><small>Your personal workspace</small></div></div><span class="demo">TEST MODE</span></header>
-<main>
-<section class="welcome"><p class="eyebrow">YOUR WORKSPACE</p><h1>Everything in one place.</h1><p>Organize your day, review priorities, and prepare to connect your own accounts.</p></section>
-<div class="notice">Sample data only · Google accounts are not connected yet.</div>
-<nav id="nav">
-<button class="active" data-view="overview">Overview</button><button data-view="email">Email</button><button data-view="calendar">Calendar</button><button data-view="tasks">Tasks</button><button data-view="files">Files</button><button data-view="connections">Connections</button>
-</nav>
-<section id="app"></section>
-<footer>Personal workspace · Secure account connections will be configured separately.</footer>
-</main><script src="app.js"></script>
+  <div class="app-shell">
+    <header class="topbar"><a class="brand" href="#overview" aria-label="Executive Command Center home"><span class="brand-mark">EC</span><span><strong>Executive</strong><small>COMMAND CENTER</small></span></a><button id="todayBtn" class="today-pill" type="button">Today</button></header>
+    <main>
+      <section class="welcome"><div><p class="eyebrow" id="todayLabel">YOUR WORKSPACE</p><h1>Good day.<br><span>Let's make progress.</span></h1><p class="subtle">Your priorities, plans, and follow-ups in one place.</p></div><div class="date-card"><span id="dateDay">MON</span><strong id="dateNumber">10</strong><span id="dateMonth">OCT</span></div></section>
+      <nav class="tabs" aria-label="Main sections"><button class="tab active" data-view="overview">Overview</button><button class="tab" data-view="tasks">Tasks</button><button class="tab" data-view="planner">Planner</button><button class="tab" data-view="notes">Notes</button><button class="tab" data-view="connections">Connections</button></nav>
+      <section id="overviewView" class="view active">
+        <div class="section-heading"><div><p class="eyebrow">AT A GLANCE</p><h2>Your day</h2></div><button class="text-button" data-goto="tasks">All tasks →</button></div>
+        <div class="stats-grid"><article class="stat-card"><span class="stat-icon violet">✓</span><span class="stat-label">Open tasks</span><strong id="openCount">0</strong><small>Items to move forward</small></article><article class="stat-card"><span class="stat-icon blue">◷</span><span class="stat-label">Today's plans</span><strong id="planCount">0</strong><small>Scheduled reminders</small></article></div>
+        <div class="section-heading"><div><p class="eyebrow">FOCUS</p><h2>Top priorities</h2></div><button class="text-button" data-goto="tasks">Manage →</button></div>
+        <div id="priorityList" class="item-list"></div>
+        <div class="section-heading"><div><p class="eyebrow">UP NEXT</p><h2>Today's plan</h2></div><button class="text-button" data-goto="planner">Open planner →</button></div>
+        <div id="todayPlans" class="item-list"></div>
+        <div class="quick-actions"><button class="quick-card" data-action="task"><span class="quick-symbol">＋</span><span><strong>Add a task</strong><small>Capture the next action</small></span></button><button class="quick-card" data-action="note"><span class="quick-symbol">✎</span><span><strong>Write a note</strong><small>Save an important detail</small></span></button><button class="quick-card" data-action="plan"><span class="quick-symbol">◷</span><span><strong>Plan time</strong><small>Add a reminder</small></span></button></div>
+      </section>
+      <section id="tasksView" class="view"><div class="section-heading"><div><p class="eyebrow">STAY ON TRACK</p><h2>Tasks</h2></div><button id="addTaskBtn" class="primary-button">＋ Add task</button></div><div class="filter-row"><button class="filter active" data-filter="all">All</button><button class="filter" data-filter="open">Open</button><button class="filter" data-filter="done">Completed</button></div><div id="taskList" class="item-list"></div></section>
+      <section id="plannerView" class="view"><div class="section-heading"><div><p class="eyebrow">MAKE SPACE FOR WHAT MATTERS</p><h2>Daily planner</h2></div><button id="addPlanBtn" class="primary-button">＋ Add plan</button></div><p class="subtle">Personal reminders saved on this device. This is not yet synced to Google Calendar.</p><div id="planList" class="item-list"></div></section>
+      <section id="notesView" class="view"><div class="section-heading"><div><p class="eyebrow">KEEP THE DETAILS</p><h2>Notes</h2></div><button id="addNoteBtn" class="primary-button">＋ New note</button></div><form id="noteForm" class="form-card hidden"><label for="noteTitle">Note title</label><input id="noteTitle" maxlength="100" placeholder="e.g. Follow up with client" required><label for="noteBody">Details</label><textarea id="noteBody" rows="4" maxlength="3000" placeholder="Write your note here..."></textarea><div class="form-actions"><button type="button" class="secondary-button" id="cancelNote">Cancel</button><button class="primary-button" type="submit">Save note</button></div></form><div id="noteList" class="notes-grid"></div></section>
+      <section id="connectionsView" class="view"><div class="section-heading"><div><p class="eyebrow">OPTIONAL INTEGRATIONS</p><h2>Connections</h2></div></div><div class="notice"><strong>Google connection not configured yet</strong><p>Gmail and Google Calendar are not connected. These buttons do not sign you in or access your account yet.</p></div><article class="connection-card"><span class="connection-logo gmail">M</span><div class="connection-info"><strong>Gmail</strong><p>Connect your inbox after secure Google authorization is configured.</p><span class="status">Not connected</span></div><button class="secondary-button" data-connection="gmail">Setup info</button></article><article class="connection-card"><span class="connection-logo calendar">31</span><div class="connection-info"><strong>Google Calendar</strong><p>Calendar access requires Google authorization and API setup.</p><span class="status">Not connected</span></div><button class="secondary-button" data-connection="calendar">Setup info</button></article><div class="notice muted-notice"><strong>Your privacy</strong><p>Tasks, plans, and notes are stored in this browser on this device. They do not automatically sync across devices. Avoid storing passwords or sensitive client information here.</p></div></section>
+    </main>
+    <footer><span>EXECUTIVE COMMAND CENTER</span><span>Personal workspace · Free version</span></footer>
+  </div>
+  <dialog id="taskDialog" class="dialog"><form id="taskForm" method="dialog"><div class="dialog-heading"><div><p class="eyebrow">NEXT ACTION</p><h2>Add a task</h2></div><button type="button" class="close-button" data-close="taskDialog">×</button></div><label for="taskTitle">Task</label><input id="taskTitle" maxlength="140" placeholder="What needs to get done?" required><label for="taskPriority">Priority</label><select id="taskPriority"><option value="high">High</option><option value="medium" selected>Medium</option><option value="low">Low</option></select><label for="taskDue">Due date (optional)</label><input id="taskDue" type="date"><div class="form-actions"><button type="button" class="secondary-button" data-close="taskDialog">Cancel</button><button class="primary-button" type="submit">Save task</button></div></form></dialog>
+  <dialog id="planDialog" class="dialog"><form id="planForm" method="dialog"><div class="dialog-heading"><div><p class="eyebrow">MAKE A PLAN</p><h2>Add a reminder</h2></div><button type="button" class="close-button" data-close="planDialog">×</button></div><label for="planTitle">What is planned?</label><input id="planTitle" maxlength="140" placeholder="e.g. Review today's priorities" required><label for="planDate">Date</label><input id="planDate" type="date" required><label for="planTime">Time (optional)</label><input id="planTime" type="time"><div class="form-actions"><button type="button" class="secondary-button" data-close="planDialog">Cancel</button><button class="primary-button" type="submit">Save reminder</button></div></form></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
 </body></html>

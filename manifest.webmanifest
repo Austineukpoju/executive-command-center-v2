@@ -1,1 +1,11 @@
-{"name":"Executive Command Center","short_name":"Command Center","start_url":"./","display":"standalone","background_color":"#0b1120","theme_color":"#101827","description":"Personal executive workspace"}
+{
+  "name": "Executive Command Center",
+  "short_name": "Executive CC",
+  "description": "A personal workspace for tasks, planning, and notes.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b1220",
+  "theme_color": "#101827",
+  "icons": []
+}
