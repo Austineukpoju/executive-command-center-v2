@@ -1,0 +1,9 @@
+{
+  "name": "Executive Command Center",
+  "short_name": "Command Center",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0b1020",
+  "theme_color": "#10162b",
+  "description": "One dashboard for your authorized work systems."
+}
